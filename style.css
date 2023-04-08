@@ -13,7 +13,7 @@ button {
   background-color: #8B0000;
   border: 2px solid #FF0000;
   color: #fff;
-  padding: 40px;
+  padding: 30px;
   font-size: 1.7em;
   font-weight: bold;
   text-shadow: 1px 1px #000;
@@ -34,17 +34,30 @@ button:hover {
   background-color: #000;
   color: #fff;
   border: 1px solid #FF0000;
-  padding: 150px;
+  padding: 130px;
   font-size: 1.5em;
   text-align: center;
   margin: 20px;
   box-shadow: 0px 0px 20px #FF0000;
-  min-height: 150px;
+  min-height: 130px;
 }
 
 #bpm {
-  font-size: 2em;
+  font-size: 1.5em;
   color: #FF0000;
   margin: 20px;
+  text-shadow: 1px 1px #000;
+}
+
+#ghost-speed-label {
+  font-size: 1.5em;
+  color: #FF0000;
+  margin-left: 20px;
+  text-shadow: 1px 1px #000;
+}
+
+#ghost-speed {
+  font-size: 1.5em;
+  color: #FF0000;
   text-shadow: 1px 1px #000;
 }

@@ -2,6 +2,8 @@ const cliquesDiv = document.getElementById("cliques");
 const bpmP = document.getElementById("bpm");
 const btnIniciar = document.getElementById("btn-iniciar");
 const btnParar = document.getElementById("btn-parar");
+var ghostSpeedSelect = document.getElementById('ghost-speed');
+var selectedGhostSpeed = ghostSpeedSelect.value;
 let isRunning = false;
 let temposCliques = [];
 
@@ -52,24 +54,25 @@ btnParar.addEventListener("click", parar);
 cliquesDiv.addEventListener("click", cliqueHandler);
 
 const fantasmas = [
-  { nome: "Normal", bpm: 115 },
-  { nome: "Twin decoy", bpm: 135 },
-  { nome: "Twin original", bpm: 100 },
+  { nome: "Normal Ghost", bpm: 115 },
+  { nome: "Twin Decoy", bpm: 135 },
+  { nome: "Twin Original", bpm: 100 },
   { nome: "Revenant while roaming", bpm: 77 },
-  { nome: "Rev while chasing", bpm: 209 },
+  { nome: "Revenant while chasing", bpm: 209 },
   { nome: "Thaye (early)", bpm: 192 },
   { nome: "Moroi (at 0 sanity)", bpm: 157 },
-  { nome: "Raiju near electronics", bpm: 174 },
-  { nome: "Jinn with LoS with breaker on", bpm: 174 }
+  { nome: "Raiju near electronics or Jinn with LoS", bpm: 174 },
 ];
 
 function encontrarFantasma(bpm) {
   let fantasmaMaisProximo = null;
   let diferencaMaisProxima = Infinity;
+    
+  ghostSpeedSelect.addEventListener('change', function() {selectedGhostSpeed = ghostSpeedSelect.value});
+  let multipleSpeed = (selectedGhostSpeed/100);
   
   for (const fantasma of fantasmas) {
-    const diferenca = Math.abs(fantasma.bpm - bpm);
-    
+    const diferenca = Math.abs(fantasma.bpm * multipleSpeed - bpm);
     if (diferenca < diferencaMaisProxima) {
       diferencaMaisProxima = diferenca;
       fantasmaMaisProximo = fantasma;
@@ -77,8 +80,9 @@ function encontrarFantasma(bpm) {
   }
   
   if (diferencaMaisProxima > 0) {
-    return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm} BPM).`;
+    return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm * multipleSpeed} BPM).`;
   } else {
-    return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm} BPM).`;
+    return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm * multipleSpeed} BPM).`;
   }
+ 
 }
