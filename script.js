@@ -79,10 +79,6 @@ function encontrarFantasma(bpm) {
     }
   }
   
-  if (diferencaMaisProxima > 0) {
-    return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm * multipleSpeed} BPM).`;
-  } else {
-    return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm * multipleSpeed} BPM).`;
-  }
+  return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm * multipleSpeed} BPM).`;
  
 }
