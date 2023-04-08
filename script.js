@@ -7,15 +7,11 @@ let temposCliques = [];
 
 function adicionarClique() {
   const tempoClique = Date.now();
-  const divClique = document.createElement("div");
-  //divClique.classList.add("clique");
-  //divClique.innerText = `Clique ${temposCliques.length}`;
-  //cliquesDiv.appendChild(divClique);
   temposCliques.push(tempoClique);
 }
 
 function limparCliques() {
-  cliquesDiv.innerHTML = "";
+  bpmP.innerText = "";
   temposCliques = [];
 }
 
@@ -34,12 +30,15 @@ function iniciar() {
   temposCliques = [];
   limparCliques();
   isRunning = true;
+  cliquesDiv.innerHTML = "Click Here";
 }
 
 function parar() {
   isRunning = false;
   const bpm = calcularBPM();
-  bpmP.innerText = `BPM: ${bpm.toFixed(2)}`;
+  const fantasma = encontrarFantasma(bpm);
+  bpmP.innerText = `BPM: ${bpm.toFixed(2)}. ${fantasma}`;
+  cliquesDiv.innerHTML = "";
 }
 
 function cliqueHandler() {
@@ -50,7 +49,7 @@ function cliqueHandler() {
 
 btnIniciar.addEventListener("click", iniciar);
 btnParar.addEventListener("click", parar);
-document.addEventListener("click", cliqueHandler);
+cliquesDiv.addEventListener("click", cliqueHandler);
 
 const fantasmas = [
   { nome: "Normal", bpm: 115 },
@@ -78,15 +77,8 @@ function encontrarFantasma(bpm) {
   }
   
   if (diferencaMaisProxima > 0) {
-    return `O BPM fornecido não corresponde a nenhum fantasma. O fantasma mais próximo é ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm} BPM).`;
+    return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm} BPM).`;
   } else {
-    return `O fantasma correspondente é ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm} BPM).`;
+    return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm} BPM).`;
   }
-}
-
-function parar() {
-  isRunning = false;
-  const bpm = calcularBPM();
-  const fantasma = encontrarFantasma(bpm);
-  bpmP.innerText = `BPM: ${bpm.toFixed(2)}. ${fantasma}`;
 }
