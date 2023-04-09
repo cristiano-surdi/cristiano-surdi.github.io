@@ -21,7 +21,7 @@ button {
   transition: all 0.2s ease;
 }
 
-#btn-iniciar {
+#btn-start {
   margin-left: 20px;
 }
 
@@ -30,7 +30,7 @@ button:hover {
   border-color: #8B0000;
 }
 
-#cliques {
+#clicks {
   background-color: #000;
   color: #fff;
   border: 1px solid #FF0000;

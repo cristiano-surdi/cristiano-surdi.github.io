@@ -1,84 +1,84 @@
-const cliquesDiv = document.getElementById("cliques");
+const clicksDiv = document.getElementById("clicks");
 const bpmP = document.getElementById("bpm");
-const btnIniciar = document.getElementById("btn-iniciar");
-const btnParar = document.getElementById("btn-parar");
-var ghostSpeedSelect = document.getElementById('ghost-speed');
-var selectedGhostSpeed = ghostSpeedSelect.value;
+const startBtn = document.getElementById("btn-start");
+const stopBtn = document.getElementById("btn-stop");
+const ghostSpeedSelect = document.getElementById('ghost-speed');
+const selectedGhostSpeed = ghostSpeedSelect.value;
 let isRunning = false;
-let temposCliques = [];
+let clickTimes = [];
 
-function adicionarClique() {
-  const tempoClique = Date.now();
-  temposCliques.push(tempoClique);
+function addClick() {
+  const clickTime = Date.now();
+  clickTimes.push(clickTime);
 }
 
-function limparCliques() {
+function clearClicks() {
   bpmP.innerText = "";
-  temposCliques = [];
+  clickTimes = [];
 }
 
-function calcularBPM() {
-  if (temposCliques.length <= 1) {
+function calculateBPM() {
+  if (clickTimes.length <= 1) {
     return 0;
   }
-  const duracaoTotal = temposCliques[temposCliques.length - 1] - temposCliques[0];
-  const intervalos = temposCliques.slice(1).map((tempo, index) => tempo - temposCliques[index]);
-  const intervaloMedio = intervalos.reduce((total, intervalo) => total + intervalo, 0) / intervalos.length;
-  const bpm = 60 * 1000 / intervaloMedio;
+  const totalDuration = clickTimes[clickTimes.length - 1] - clickTimes[0];
+  const intervals = clickTimes.slice(1).map((time, index) => time - clickTimes[index]);
+  const averageInterval = intervals.reduce((total, interval) => total + interval, 0) / intervals.length;
+  const bpm = 60 * 1000 / averageInterval;
   return bpm;
 }
 
-function iniciar() {
-  temposCliques = [];
-  limparCliques();
+function start() {
+  clickTimes = [];
+  clearClicks();
   isRunning = true;
-  cliquesDiv.innerHTML = "Click Here";
+  clicksDiv.innerHTML = "Click Here";
 }
 
-function parar() {
+function stop() {
   isRunning = false;
-  const bpm = calcularBPM();
-  const fantasma = encontrarFantasma(bpm);
-  bpmP.innerText = `${fantasma}`;
-  cliquesDiv.innerHTML = `BPM: ${bpm.toFixed(2)}`;
+  const bpm = calculateBPM();
+  const ghost = findGhost(bpm);
+  bpmP.innerText = `${ghost}`;
+  clicksDiv.innerHTML = `BPM: ${bpm.toFixed(2)}`;
 }
 
-function cliqueHandler() {
+function clickHandler() {
   if (isRunning) {
-    adicionarClique();
+    addClick();
   }
 }
 
-btnIniciar.addEventListener("click", iniciar);
-btnParar.addEventListener("click", parar);
-cliquesDiv.addEventListener("click", cliqueHandler);
+startBtn.addEventListener("click", start);
+stopBtn.addEventListener("click", stop);
+clicksDiv.addEventListener("click", clickHandler);
 
-const fantasmas = [
-  { nome: "Normal Ghost", bpm: 115 },
-  { nome: "Twin Decoy", bpm: 135 },
-  { nome: "Twin Original", bpm: 100 },
-  { nome: "Revenant while roaming", bpm: 77 },
-  { nome: "Revenant while chasing", bpm: 209 },
-  { nome: "Thaye (early)", bpm: 192 },
-  { nome: "Moroi (at 0 sanity) or Hantu on cold temp", bpm: 157 },
-  { nome: "Raiju near electronics or Jinn with LoS", bpm: 174 },
+const ghosts = [
+  { name: "Normal Ghost", bpm: 115 },
+  { name: "Twin Decoy", bpm: 135 },
+  { name: "Twin Original", bpm: 100 },
+  { name: "Revenant while roaming", bpm: 77 },
+  { name: "Revenant while chasing", bpm: 209 },
+  { name: "Thaye (early)", bpm: 192 },
+  { name: "Moroi (at 0 sanity) or Hantu on cold temp", bpm: 157 },
+  { name: "Raiju near electronics or Jinn with LoS", bpm: 174 },
 ];
 
-function encontrarFantasma(bpm) {
-  let fantasmaMaisProximo = null;
-  let diferencaMaisProxima = Infinity;
+function findGhost(bpm) {
+  let closestGhost = null;
+  let closestDifference = Infinity;
     
   ghostSpeedSelect.addEventListener('change', function() {selectedGhostSpeed = ghostSpeedSelect.value});
   let multipleSpeed = (selectedGhostSpeed/100);
   
-  for (const fantasma of fantasmas) {
-    const diferenca = Math.abs(fantasma.bpm * multipleSpeed - bpm);
-    if (diferenca < diferencaMaisProxima) {
-      diferencaMaisProxima = diferenca;
-      fantasmaMaisProximo = fantasma;
+  for (const ghost of ghosts) {
+    const difference = Math.abs(ghost.bpm * multipleSpeed - bpm);
+    if (difference < closestDifference) {
+      closestDifference = difference;
+      closestGhost = ghost;
     }
   }
   
-  return `The most likely ghost is ${fantasmaMaisProximo.nome} (${fantasmaMaisProximo.bpm * multipleSpeed} BPM).`;
+  return `The most likely ghost is ${closestGhost.name} (${closestGhost.bpm * multipleSpeed} BPM).`;
  
 }
