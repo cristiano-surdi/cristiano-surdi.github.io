@@ -39,8 +39,8 @@ function parar() {
   isRunning = false;
   const bpm = calcularBPM();
   const fantasma = encontrarFantasma(bpm);
-  bpmP.innerText = `BPM: ${bpm.toFixed(2)}. ${fantasma}`;
-  cliquesDiv.innerHTML = "";
+  bpmP.innerText = `${fantasma}`;
+  cliquesDiv.innerHTML = `BPM: ${bpm.toFixed(2)}`;
 }
 
 function cliqueHandler() {
