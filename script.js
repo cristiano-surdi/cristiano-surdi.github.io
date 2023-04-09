@@ -70,7 +70,7 @@ function findGhost(bpm) {
     
   ghostSpeedSelect.addEventListener('change', function() {selectedGhostSpeed = ghostSpeedSelect.value});
   let multipleSpeed = (selectedGhostSpeed/100);
-  console.log(multipleSpeed)
+  
   for (const ghost of ghosts) {
     const difference = Math.abs(ghost.bpm * multipleSpeed - bpm);
     if (difference < closestDifference) {
