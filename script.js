@@ -79,6 +79,10 @@ function findGhost(bpm) {
     }
   }
   
-  return `The most likely ghost is ${closestGhost.name} (${closestGhost.bpm * multipleSpeed} BPM).`;
+  if (bpm == 0) {
+	return `There are no ghosts with 0 BPM`;
+  } else {
+	return `The most likely ghost is ${closestGhost.name} (${closestGhost.bpm * multipleSpeed} BPM)`;		
+  }
  
 }
