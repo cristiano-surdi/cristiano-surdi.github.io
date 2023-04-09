@@ -60,7 +60,7 @@ const fantasmas = [
   { nome: "Revenant while roaming", bpm: 77 },
   { nome: "Revenant while chasing", bpm: 209 },
   { nome: "Thaye (early)", bpm: 192 },
-  { nome: "Moroi (at 0 sanity)", bpm: 157 },
+  { nome: "Moroi (at 0 sanity) or Hantu on cold temp", bpm: 157 },
   { nome: "Raiju near electronics or Jinn with LoS", bpm: 174 },
 ];
 
