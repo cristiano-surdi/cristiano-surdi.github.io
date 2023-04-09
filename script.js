@@ -2,8 +2,8 @@ const clicksDiv = document.getElementById("clicks");
 const bpmP = document.getElementById("bpm");
 const startBtn = document.getElementById("btn-start");
 const stopBtn = document.getElementById("btn-stop");
-const ghostSpeedSelect = document.getElementById('ghost-speed');
-const selectedGhostSpeed = ghostSpeedSelect.value;
+let ghostSpeedSelect = document.getElementById('ghost-speed');
+let selectedGhostSpeed = ghostSpeedSelect.value;
 let isRunning = false;
 let clickTimes = [];
 
@@ -70,7 +70,7 @@ function findGhost(bpm) {
     
   ghostSpeedSelect.addEventListener('change', function() {selectedGhostSpeed = ghostSpeedSelect.value});
   let multipleSpeed = (selectedGhostSpeed/100);
-  
+  console.log(multipleSpeed)
   for (const ghost of ghosts) {
     const difference = Math.abs(ghost.bpm * multipleSpeed - bpm);
     if (difference < closestDifference) {
